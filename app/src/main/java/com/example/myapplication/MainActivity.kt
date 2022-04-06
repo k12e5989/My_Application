@@ -47,6 +47,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        println("onResume")
+        println(DaggerMyComponent.create().getString())
     }
 }
