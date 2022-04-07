@@ -1,8 +1,9 @@
 package com.example.myapplication
 
+import com.example.myapplication.components.DaggerMyComponent
+import com.example.myapplication.components.DaggerPersonComponent
+import org.junit.Assert.assertEquals
 import org.junit.Test
-
-import org.junit.Assert.*
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -44,8 +45,18 @@ class ExampleUnitTest {
         println("✅ " + personA.name + " : " + personA.age)
 
         val personB = PersonB()
-        DaggerPersonComponent.create().inject(personB)
+        DaggerPersonComponent.create().load(personB)
         assertEquals(personB.name, "Charles")
         assertEquals(personB.getAge(), 100)
+    }
+
+    @Test
+    fun testInheritance() {
+        val child = Child()
+        DaggerPersonComponent.create().load(child)
+
+        assertEquals("Charles", child.name)
+        assertEquals("Charles", child.selfName)
+        assertEquals("", child.childName)
     }
 }

@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.modules
 
 import dagger.Module
 import dagger.Provides
