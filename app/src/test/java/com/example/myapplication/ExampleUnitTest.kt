@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import com.example.myapplication.components.DaggerMyComponent
 import com.example.myapplication.components.DaggerPersonComponent
+import com.example.myapplication.modules.PersonModule
 import org.junit.Assert.assertEquals
 import org.junit.Test
 
@@ -39,24 +40,36 @@ class ExampleUnitTest {
         println("✅ " + myClass.str)
     }
 
+//    @Test
+//    fun testInjections() {
+//        val personA = DaggerPersonComponent.create().getPersonA()
+//        println("✅ " + personA.name + " : " + personA.age)
+//
+//        val personB = PersonB()
+//        DaggerPersonComponent.create().load(personB)
+//        assertEquals(personB.name, "Charles")
+//        assertEquals(personB.getAge(), 100)
+//    }
+//
+//    @Test
+//    fun testInheritance() {
+//        val child = Child()
+//        DaggerPersonComponent.create().load(child)
+//        // todo 10 - 상속시 주입
+//        assertEquals("Charles", child.name)
+//        assertEquals("Charles", child.selfName)
+//        assertEquals("", child.childName)
+//    }
+
     @Test
-    fun testInjections() {
-        val personA = DaggerPersonComponent.create().getPersonA()
-        println("✅ " + personA.name + " : " + personA.age)
+    fun testComponentBuilder() {
+        val self = Self()
+        val component = DaggerPersonComponent.builder()
+            .setModule(PersonModule())
+            .setHeight(181.5f)
+            .build()
+        component.load(self)
 
-        val personB = PersonB()
-        DaggerPersonComponent.create().load(personB)
-        assertEquals(personB.name, "Charles")
-        assertEquals(personB.getAge(), 100)
-    }
-
-    @Test
-    fun testInheritance() {
-        val child = Child()
-        DaggerPersonComponent.create().load(child)
-
-        assertEquals("Charles", child.name)
-        assertEquals("Charles", child.selfName)
-        assertEquals("", child.childName)
+        assertEquals(181.5f, self.height)
     }
 }

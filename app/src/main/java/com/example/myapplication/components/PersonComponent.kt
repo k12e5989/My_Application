@@ -4,6 +4,7 @@ import com.example.myapplication.PersonA
 import com.example.myapplication.PersonB
 import com.example.myapplication.Self
 import com.example.myapplication.modules.PersonModule
+import dagger.BindsInstance
 import dagger.Component
 
 @Component(modules = [PersonModule::class])
@@ -14,5 +15,17 @@ interface PersonComponent {
 
     fun load(self: Self)
 
+    // todo 11 - Builder & Factory
+    @Component.Builder
+    interface Builder {
+        fun setModule(personModule: PersonModule): Builder
+        @BindsInstance
+        fun setHeight(height: Float): Builder
+        fun build(): PersonComponent
+    }
 
+//    @Component.Factory
+//    interface Factory {
+//        fun newPersonComponent(pm: PersonComponent): PersonComponent
+//    }
 }
