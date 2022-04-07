@@ -72,4 +72,11 @@ class ExampleUnitTest {
 
         assertEquals(181.5f, self.height)
     }
+
+    @Test
+    fun testLazy() {
+        val counter = Counter()
+        DaggerCounterComponent.create().inject(counter)
+        counter.printLazy()
+    }
 }
