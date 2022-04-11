@@ -1,8 +1,8 @@
 package com.example.myapplication.components
 
-import com.example.myapplication.PersonA
-import com.example.myapplication.PersonB
-import com.example.myapplication.Self
+import com.example.myapplication.concrete.PersonA
+import com.example.myapplication.concrete.PersonB
+import com.example.myapplication.concrete.Self
 import com.example.myapplication.modules.PersonModule
 import dagger.BindsInstance
 import dagger.Component

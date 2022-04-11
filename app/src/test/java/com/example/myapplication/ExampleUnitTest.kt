@@ -2,6 +2,8 @@ package com.example.myapplication
 
 import com.example.myapplication.components.DaggerMyComponent
 import com.example.myapplication.components.DaggerPersonComponent
+import com.example.myapplication.concrete.MyClass
+import com.example.myapplication.concrete.Self
 import com.example.myapplication.modules.PersonModule
 import org.junit.Assert.assertEquals
 import org.junit.Test

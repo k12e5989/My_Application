@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.concrete
 
 import javax.inject.Inject
 

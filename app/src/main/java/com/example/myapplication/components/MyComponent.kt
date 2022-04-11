@@ -1,6 +1,6 @@
 package com.example.myapplication.components
 
-import com.example.myapplication.MyClass
+import com.example.myapplication.concrete.MyClass
 import com.example.myapplication.modules.YourModule
 import dagger.Component
 import dagger.MembersInjector
