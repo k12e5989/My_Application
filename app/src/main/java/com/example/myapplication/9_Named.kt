@@ -3,16 +3,18 @@ package com.example.myapplication
 import dagger.Component
 import dagger.Module
 import dagger.Provides
+import java.lang.annotation.RetentionPolicy
 import javax.inject.Inject
 import javax.inject.Named
+import javax.inject.Qualifier
 
 @Component(modules = [NamedModule::class])
 interface NamedComponent {
-//    @Named("hello")
-//    fun getHello(): String
+    @Named("hello")
+    fun getHello(): String
 
-//    @Named("world")
-//    fun getWorld(): String
+    @Named("world")
+    fun getWorld(): String
 
     fun inject(concrete: NamedConcrete)
     fun getConcrete(): NamedConcrete

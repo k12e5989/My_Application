@@ -9,6 +9,9 @@ class MyClass {
     //    private java.lang.String str = "default";
 //    @Inject
 //    var str: String = "default"
-    var str: String = ""
+    var str: String? = ""
         @Inject set
+
+//    lateinit var any: Any
+//        @Inject set
 }
