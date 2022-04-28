@@ -15,17 +15,15 @@ class FooMap {
 
 @Module
 class MapModule {
-    companion object {
-        @Provides
-        @IntoMap
-        @StringKey("foo")
-        fun provideFooValue() = 100L
+    @Provides
+    @IntoMap
+    @StringKey("foo")
+    fun provideFooValue() = 100L
 
-        @Provides
-        @IntoMap
-        @ClassKey(FooMap::class)
-        fun provideFooStr() = "Foo String"
-    }
+    @Provides
+    @IntoMap
+    @ClassKey(FooMap::class)
+    fun provideFooStr() = "Foo String"
 }
 
 @Component(modules = [MapModule::class])
