@@ -3,24 +3,27 @@ package com.example.myapplication
 import dagger.Component
 import dagger.Module
 import dagger.Provides
+import dagger.multibindings.IntoSet
 
 @Module
-class moduleA {
+class ModuleA {
     @Provides
+    @IntoSet
     fun provideString() = "A"
 }
 
 @Module
-class moduleB {
+class ModuleB {
     @Provides
+    @IntoSet
     fun provideString() = "B"
 }
 
-@Component(modules = [moduleA::class, moduleB::class])
-interface playComponent {
-    fun getString(): String
+@Component(modules = [ModuleA::class, ModuleB::class])
+interface PlayComponent {
+    fun getStrings(): Set<String>
     @Component.Builder
     interface Builder {
-        fun setModule()
+        fun setModule(): PlayComponent
     }
 }

@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import com.example.myapplication.App
 import com.example.myapplication.MainActivityComponent
+import com.example.myapplication.MainFragment
 import com.example.myapplication.R
 import com.example.myapplication.components.DaggerMyComponent
 import com.example.myapplication.databinding.ActivityMainBinding

@@ -4,7 +4,16 @@ import android.app.Application
 import android.content.Context
 import com.example.myapplication.ui.main.MainActivity
 import dagger.*
+import javax.inject.Scope
 import javax.inject.Singleton
+
+@Scope
+@Retention(value = AnnotationRetention.RUNTIME)
+annotation class ActivityScope
+
+@Scope
+@Retention(value = AnnotationRetention.RUNTIME)
+annotation class FragmentScope
 
 @Component(modules = [AppModule::class])
 @Singleton
@@ -14,7 +23,7 @@ interface AppComponent {
 
     @Component.Factory
     interface Factory {
-        fun create(@BindsInstance app: App, appModule: AppModule)
+        fun create(@BindsInstance app: App, appModule: AppModule): AppComponent
     }
 }
 
@@ -54,5 +63,5 @@ interface MainActivityComponent {
 class MainActivityModule {
     @Provides
     @ActivityScope
-    fun provideActivityName() = MainActivity::class.simpleName
+    fun provideActivityName(): String = MainActivity::class.simpleName!!
 }

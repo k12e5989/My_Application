@@ -14,24 +14,14 @@ interface ParentComponent {
 
 @Module
 class GrandparentModule {
-    @Provides
-    @IntoSet
-    fun string1() = "Grandpa"
-
-    @Provides
-    @IntoSet
-    fun string2() = "Grandma"
+    @Provides @IntoSet fun string1() = "Grandpa"
+    @Provides @IntoSet fun string2() = "Grandma"
 }
 
 @Module(subcomponents = [ChildComponent::class])
 class ParentModule {
-    @Provides
-    @IntoSet
-    fun string1() = "parent string 1"
-
-    @Provides
-    @IntoSet
-    fun string2() = "parent string 2"
+    @Provides @IntoSet fun string1() = "parent string 1"
+    @Provides @IntoSet fun string2() = "parent string 2"
 }
 
 @Subcomponent(modules = [ChildModule::class])
@@ -46,11 +36,6 @@ interface ChildComponent {
 
 @Module
 class ChildModule {
-    @Provides
-    @IntoSet
-    fun string3() = "child string 1"
-
-    @Provides
-    @IntoSet
-    fun string4() = "child string 2"
+    @Provides @IntoSet fun string3() = "child string 1"
+    @Provides @IntoSet fun string4() = "child string 2"
 }

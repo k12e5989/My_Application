@@ -24,7 +24,6 @@ class Cafe {
         DaggerCafeComponent.create().inject(this)
     }
     @Inject lateinit var coffeeMachine: Machine
-
     fun orderCoffee() = coffeeMachine.extract()
 }
 
@@ -52,6 +51,5 @@ class Machine(builder: MachineComponent.Builder) {
     init {
         component.inject(this)
     }
-
     fun extract() = component.getCoffee()
 }

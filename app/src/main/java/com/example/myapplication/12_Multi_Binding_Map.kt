@@ -9,20 +9,14 @@ import dagger.multibindings.IntoMap
 import dagger.multibindings.StringKey
 import kotlin.reflect.KClass
 
-class FooMap {
-
-}
+class FooMap
 
 @Module
 class MapModule {
-    @Provides
-    @IntoMap
-    @StringKey("foo")
+    @Provides @IntoMap @StringKey("foo")
     fun provideFooValue() = 100L
 
-    @Provides
-    @IntoMap
-    @ClassKey(FooMap::class)
+    @Provides @IntoMap @ClassKey(FooMap::class)
     fun provideFooStr() = "Foo String"
 }
 
@@ -50,23 +44,15 @@ interface MapKeyComponent {
 
 @Module
 class CustomMapModule {
-    @IntoMap
-    @AnimalKey(Animal.CAT)
-    @Provides
+    @IntoMap @AnimalKey(Animal.CAT) @Provides
     fun provideCat() = "Meow"
 
-    @IntoMap
-    @AnimalKey(Animal.DOG)
-    @Provides
+    @IntoMap @AnimalKey(Animal.DOG) @Provides
     fun provideDog() = "Bow-wow"
 
-    @IntoMap
-    @NumberKey(Float::class)
-    @Provides
+    @IntoMap @NumberKey(Float::class) @Provides
     fun provideFloatString() = "100f"
 
-    @IntoMap
-    @NumberKey(Integer::class)
-    @Provides
+    @IntoMap @NumberKey(Integer::class) @Provides
     fun provideIntegerString() = "1"
 }
