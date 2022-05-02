@@ -22,18 +22,19 @@ class SetModule {
 
 @Component(modules = [SetModule::class])
 interface SetComponent {
-    fun getSet(): Set<String>
+    fun getStrings(): Set<String>
 }
 
 @Module
 class ElementsIntoSetModule {
-//    companion object {
-//        var s1 = "default"
-//    }
     @Provides
     @ElementsIntoSet
     fun provideSet() = setOf("Charles", "Runa")
-//    fun provideSet() = setOf(s1)
+    //    }
+
+    @Provides
+    @ElementsIntoSet
+    fun provideSet2() = setOf("a", "b")
 }
 
 @Component(modules = [ElementsIntoSetModule::class])

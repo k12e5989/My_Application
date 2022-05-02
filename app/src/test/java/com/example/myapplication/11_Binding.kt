@@ -17,7 +17,7 @@ class BindingTest {
         println("foo.optional.isPresent: ${foo.optional.isPresent}")
         println("foo.optionalP.isPresent: ${foo.optionalP.isPresent}")
         println("foo.optionalL.isPresent: ${foo.optionalL.isPresent}")
-
+        println(DaggerStrComponent.create().ii())
 //        println("foo.nullable: ${foo.nullable}")
 //        println("foo.nullableP?.get(): ${foo.nullableP?.get()}")
 //        println("foo.nullableL?.get(): ${foo.nullableL?.get()}")

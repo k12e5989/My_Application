@@ -34,6 +34,16 @@ abstract class BindsOptionalOfModule {
 class BindsStringModule {
     @Provides
     fun provideString() = "나는 문자열"
+
+    @Provides
+    fun size(string: String): Int = string.length
+}
+
+@Component(modules = [BindsOptionalOfModule::class, BindsStringModule::class])
+//@Component(modules = [BindsOptionalOfModule::class])
+interface StrComponent {
+    fun inject(foo: Foo)
+    fun ii(): Int
 }
 
 class Foo {
@@ -55,11 +65,3 @@ class Foo {
 //    var nullableL: Lazy<String>? = null
 //        @Inject set
 }
-
-//@Component(modules = [BindsOptionalOfModule::class, BindsStringModule::class])
-@Component(modules = [BindsOptionalOfModule::class])
-interface StrComponent {
-    fun inject(foo: Foo)
-}
-
-// ------------------------------------------------------------------------

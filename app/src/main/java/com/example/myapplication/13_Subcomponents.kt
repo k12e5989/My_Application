@@ -10,7 +10,7 @@ class Water
 
 @Component(modules = [CafeModule::class])
 interface CafeComponent {
-    fun inject(cafe: Cafe): Unit
+    fun inject(cafe: Cafe)
 }
 
 @Module(subcomponents = [MachineComponent::class])
@@ -33,7 +33,7 @@ class CoffeeBean
 @Subcomponent(modules = [MachineModule::class])
 interface MachineComponent {
     fun getCoffee(): Coffee // 생성자 주입, p.48
-    fun inject(machine: Machine): Unit
+    fun inject(machine: Machine)
 
     @Subcomponent.Builder
     interface Builder {

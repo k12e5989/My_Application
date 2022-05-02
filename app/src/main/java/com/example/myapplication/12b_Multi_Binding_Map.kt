@@ -11,19 +11,23 @@ import kotlin.reflect.KClass
 
 class FooMap
 
-@Module
-class MapModule {
-    @Provides @IntoMap @StringKey("foo")
-    fun provideFooValue() = 100L
-
-    @Provides @IntoMap @ClassKey(FooMap::class)
-    fun provideFooStr() = "Foo String"
-}
-
 @Component(modules = [MapModule::class])
 interface MapComponent {
     fun getLongsByString(): Map<String, Long>
     fun getStringsByClass(): Map<Class<*>, String>
+}
+
+@Module
+class MapModule {
+    @Provides
+    @IntoMap
+    @StringKey("foo")
+    fun provideFooValue() = 100L
+
+    @Provides
+    @IntoMap
+    @ClassKey(FooMap::class)
+    fun provideFooStr() = "Foo String"
 }
 
 //--------------------------------------------------------
@@ -44,15 +48,15 @@ interface MapKeyComponent {
 
 @Module
 class CustomMapModule {
-    @IntoMap @AnimalKey(Animal.CAT) @Provides
+    @Provides @IntoMap @AnimalKey(Animal.CAT)
     fun provideCat() = "Meow"
 
-    @IntoMap @AnimalKey(Animal.DOG) @Provides
+    @Provides @IntoMap @AnimalKey(Animal.DOG)
     fun provideDog() = "Bow-wow"
 
-    @IntoMap @NumberKey(Float::class) @Provides
+    @Provides @IntoMap @NumberKey(Float::class)
     fun provideFloatString() = "100f"
 
-    @IntoMap @NumberKey(Integer::class) @Provides
+    @Provides @IntoMap @NumberKey(Int::class)
     fun provideIntegerString() = "1"
 }
