@@ -1,15 +1,13 @@
 package com.example.myapplication
 
-import android.app.Application
+import android.content.Context.MODE_PRIVATE
 import com.example.myapplication.ui.main.MainActivity
 import dagger.*
 import dagger.android.AndroidInjectionModule
 import dagger.android.AndroidInjector
-import dagger.android.DispatchingAndroidInjector
-import dagger.android.HasAndroidInjector
+import dagger.android.DaggerApplication
 import dagger.multibindings.ClassKey
 import dagger.multibindings.IntoMap
-import javax.inject.Inject
 import javax.inject.Named
 import javax.inject.Scope
 import javax.inject.Singleton
@@ -35,24 +33,22 @@ abstract class AppModule {
     companion object {
         @Named("app") @Provides @Singleton
         fun provideString() = "String from AppModule"
+
+        @Provides
+        @Singleton
+        fun sf(app: App) = app.getSharedPreferences("default", MODE_PRIVATE)
     }
 
     @Binds @IntoMap @ClassKey(MainActivity::class)
     abstract fun bindAndroidInjectorFactory(factory: MainActivityComponent.Factory): AndroidInjector.Factory<*>
 }
 
-class App : Application(), HasAndroidInjector {
-    @Inject
-    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Any>
-
-    override fun onCreate() {
-        super.onCreate()
-        DaggerAppComponent.factory().create(this).inject(this)
-    }
-
-    override fun androidInjector(): AndroidInjector<Any> = dispatchingAndroidInjector
+class App : DaggerApplication() {
+    override fun applicationInjector(): AndroidInjector<out DaggerApplication> = DaggerAppComponent.factory().create(this)
 }
 // =============================================================================
+
+
 @Subcomponent(modules = [MainActivityModule::class])
 @ActivityScope // scope annotation
 interface MainActivityComponent : AndroidInjector<MainActivity> {
@@ -65,6 +61,9 @@ abstract class MainActivityModule {
     companion object {
         @Named("activity") @Provides @ActivityScope
         fun provideActivityName(): String = "String from ${MainActivity::class.simpleName}"
+
+        @Provides
+        fun str() = "Activity String"
     }
 
     @Binds @IntoMap @ClassKey(MainFragment::class)
