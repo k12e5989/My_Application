@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
 import androidx.fragment.app.Fragment
-import com.example.myapplication.ui.main.MainActivity
 import dagger.BindsInstance
 import dagger.Module
 import dagger.Provides
@@ -32,8 +31,10 @@ class MainFragmentModule {
 }
 
 class MainFragment : Fragment() {
-    @Inject lateinit var sharedPreferences: SharedPreferences
-    @Inject lateinit var activityName: String
+    @Inject
+    lateinit var sharedPreferences: SharedPreferences
+    @Inject
+    lateinit var activityName: String
     var randomNumber: Int = 0
         @Inject set
 

@@ -3,8 +3,10 @@ package com.example.myapplication
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
-import com.example.myapplication.ui.main.MainActivity
-import dagger.*
+import dagger.BindsInstance
+import dagger.Component
+import dagger.Module
+import dagger.Provides
 import javax.inject.Scope
 import javax.inject.Singleton
 
@@ -45,24 +47,4 @@ class App : Application() {
         super.onCreate()
         appComponent = DaggerAppComponent.factory().create(this, AppModule())
     }
-}
-// =============================================================================
-@Subcomponent(modules = [MainActivityModule::class])
-@ActivityScope // scope annotation
-interface MainActivityComponent {
-    fun mainFragmentComponentBuilder(): MainFragmentComponent.Builder
-    fun inject(activity: MainActivity)
-
-    @Subcomponent.Builder
-    interface Builder {
-        @BindsInstance fun setActivity(activity: MainActivity): Builder
-        fun build(): MainActivityComponent
-    }
-}
-
-@Module(subcomponents = [MainFragmentComponent::class])
-class MainActivityModule {
-    @Provides
-    @ActivityScope
-    fun provideActivityName(): String = MainActivity::class.simpleName!!
 }
