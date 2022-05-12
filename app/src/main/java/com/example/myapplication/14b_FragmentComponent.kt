@@ -1,55 +1,39 @@
 package com.example.myapplication
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.util.Log
 import androidx.fragment.app.Fragment
-import com.example.myapplication.ui.main.MainActivity
-import dagger.BindsInstance
 import dagger.Module
 import dagger.Provides
 import dagger.Subcomponent
-import java.util.*
+import dagger.android.AndroidInjector
+import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
+import javax.inject.Named
 
 @FragmentScope
 @Subcomponent(modules = [MainFragmentModule::class])
-interface MainFragmentComponent {
-    fun inject(mainFragment: MainFragment)
-    fun self(): MainFragment
-
-    @Subcomponent.Builder
-    interface Builder {
-        @BindsInstance
-        fun setFragment(fragment: MainFragment): Builder
-        fun build(): MainFragmentComponent
-    }
+interface MainFragmentComponent : AndroidInjector<MainFragment> {
+    @Subcomponent.Factory
+    interface Factory : AndroidInjector.Factory<MainFragment>
 }
 
 @Module
 class MainFragmentModule {
-    @Provides @FragmentScope fun provideInt() = Random().nextInt()
+    @Named("fragment") @Provides @FragmentScope fun provideString() = "String from fragment"
 }
 
 class MainFragment : Fragment() {
-    @Inject lateinit var sharedPreferences: SharedPreferences
-    @Inject lateinit var activityName: String
-    var randomNumber: Int = 0
-        @Inject set
+    @Inject @Named("app") lateinit var appString: String
+    @Inject @Named("activity") lateinit var activityString: String
+    @Inject @Named("fragment") lateinit var fragmentString: String
 
     override fun onAttach(context: Context) {
-        super.onAttach(context)
-        lateinit var component: MainFragmentComponent // DaggerMainFragmentComponent 없다
+        AndroidSupportInjection.inject(this)
+        Log.d(MainFragment::class.simpleName, appString)
+        Log.d(MainFragment::class.simpleName, activityString)
+        Log.d(MainFragment::class.simpleName, fragmentString)
 
-        if (activity is MainActivity) {
-            component = (activity as MainActivity).component
-                .mainFragmentComponentBuilder()
-                .setFragment(this)
-                .build()
-            component.inject(this)
-        }
-        Log.d(MainFragment::class.simpleName, activityName)
-        Log.d(MainFragment::class.simpleName, "randomNumber = $randomNumber")
-        Log.d(MainFragment::class.simpleName, "SAME? - ${component.self() == this}")
+        super.onAttach(context)
     }
 }
