@@ -11,12 +11,11 @@ class `12d_Multi_Binding_Abstract` {
 
     @Test
     fun testMultibindsWithSubcomponent() {
-//        println("Child: ")
-//        DaggerMultibindsComponent.create()
-//            .childCompBuilder()
-//            .build()
-//            .getStrings()
-//            .forEach { println(it) }
-//
+        println("Child: ")
+        DaggerMultibindsComponent.create()
+            .childCompBuilder()
+            .build()
+            .getStrings()
+            .forEach { println(it) }
     }
 }

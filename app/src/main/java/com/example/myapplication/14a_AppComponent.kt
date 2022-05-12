@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.app.Application
 import android.content.Context
+import android.content.SharedPreferences
 import com.example.myapplication.ui.main.MainActivity
 import dagger.*
 import javax.inject.Scope
@@ -19,7 +20,7 @@ annotation class FragmentScope
 @Singleton
 interface AppComponent {
     fun mainActivityComponentBuilder(): MainActivityComponent.Builder
-    fun inject(app: App)
+    fun inject(app: App) // 안 쓴다.
 
     @Component.Factory
     interface Factory {
@@ -31,7 +32,7 @@ interface AppComponent {
 class AppModule {
     @Provides
     @Singleton
-    fun provideSharedPreferences(app: App) = app.getSharedPreferences(
+    fun provideSharedPreferences(app: App): SharedPreferences = app.getSharedPreferences(
         "default",
         Context.MODE_PRIVATE
     )
@@ -47,7 +48,7 @@ class App : Application() {
 }
 // =============================================================================
 @Subcomponent(modules = [MainActivityModule::class])
-@ActivityScope
+@ActivityScope // scope annotation
 interface MainActivityComponent {
     fun mainFragmentComponentBuilder(): MainFragmentComponent.Builder
     fun inject(activity: MainActivity)

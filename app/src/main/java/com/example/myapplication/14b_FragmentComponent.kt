@@ -16,11 +16,12 @@ import javax.inject.Inject
 @Subcomponent(modules = [MainFragmentModule::class])
 interface MainFragmentComponent {
     fun inject(mainFragment: MainFragment)
+    fun self(): MainFragment
 
     @Subcomponent.Builder
     interface Builder {
         @BindsInstance
-        fun setFragment(fragment: MainFragment): MainFragmentComponent.Builder
+        fun setFragment(fragment: MainFragment): Builder
         fun build(): MainFragmentComponent
     }
 }
@@ -38,13 +39,17 @@ class MainFragment : Fragment() {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
+        lateinit var component: MainFragmentComponent // DaggerMainFragmentComponent 없다
+
         if (activity is MainActivity) {
-            (activity as MainActivity).component
+            component = (activity as MainActivity).component
                 .mainFragmentComponentBuilder()
                 .setFragment(this)
-                .build().inject(this)
+                .build()
+            component.inject(this)
         }
         Log.d(MainFragment::class.simpleName, activityName)
         Log.d(MainFragment::class.simpleName, "randomNumber = $randomNumber")
+        Log.d(MainFragment::class.simpleName, "SAME? - ${component.self() == this}")
     }
 }

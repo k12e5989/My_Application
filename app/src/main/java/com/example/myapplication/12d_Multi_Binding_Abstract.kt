@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.Subcomponent
 import dagger.multibindings.ElementsIntoSet
+import dagger.multibindings.IntoSet
 import dagger.multibindings.Multibinds
 
 @Component(modules = [MultibindsModule::class])
@@ -15,7 +16,7 @@ interface MultibindsComponent {
 
 @Module(subcomponents = [MultibindsSubComponent::class])
 abstract class MultibindsModule {
-    @Multibinds
+    @Multibinds // must be abstract
     abstract fun strings(): Set<String>
 }
 
@@ -32,5 +33,6 @@ interface MultibindsSubComponent {
 @Module
 class MultibindsSubmodule {
     @Provides
+    @IntoSet // 오류 원인. run with stacktrace 도움
     fun strings(): Set<String> = setOf("str 1", "str 2")
 }
